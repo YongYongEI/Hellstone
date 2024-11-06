@@ -1,0 +1,26 @@
+import pandas as pd
+import numpy as np
+
+# CSV 파일을 읽어오기
+df = pd.read_csv(r"파일경로", encoding="cp949")
+
+# '시군구' 열에서 읍면동 단위 추출
+df['읍면동'] = df['시군구'].str.split().str[-1]
+
+# 사고 건수 집계
+df_grouped = df.groupby("읍면동").agg(
+    사고건수=("사고번호", "count"),
+    사망자수=("사망자수", "sum"),
+    중상자수=("중상자수", "sum"),
+    경상자수=("경상자수", "sum"),
+    부상신고자수=("부상신고자수", "sum")
+).reset_index()
+
+# ARI 계산 (수식에 따라)
+df_grouped["ARI"] = np.sqrt((df_grouped["사망자수"] + df_grouped["중상자수"] + df_grouped["경상자수"] + df_grouped["부상신고자수"])**2 + (df_grouped["사고건수"])**2) / 2
+
+# 결과 출력
+print(df_grouped)
+
+# 결과를 CSV로 저장
+df_grouped.to_csv(r'파일경로', index=False, encoding='euc-kr')
