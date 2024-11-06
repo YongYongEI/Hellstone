@@ -1,3 +1,5 @@
+#ARI 읍면동 기준 계산
+
 import pandas as pd
 import numpy as np
 
