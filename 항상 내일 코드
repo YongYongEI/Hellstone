@@ -2,7 +2,7 @@ import requests
 from datetime import datetime, timedelta
 
 # OpenWeatherMap API 키
-API_KEY = 'YOUR_API_KEY'  # OpenWeatherMap API 키를 입력하세요.
+API_KEY = '09806c8ab9fb92886b5a722c6359df79'  # OpenWeatherMap API 키를 입력하세요.
 
 # 주요 동과 위도, 경도 정의
 districts = {
